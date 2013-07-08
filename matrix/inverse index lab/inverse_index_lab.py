@@ -55,8 +55,11 @@ def andSearch(inverseIndex, query):
     Output: the set of all document ids that contain _all_ of the specified words
     """
 
-    matches = set()
+    matches = False
     for i in query:
         if i in inverseIndex:
-            matches = matches & inverseIndex[i]
+            if matches is False:
+                matches = inverseIndex[i]
+            else:
+                matches = matches & inverseIndex[i]
     return matches
