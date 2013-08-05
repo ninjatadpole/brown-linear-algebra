@@ -42,7 +42,7 @@ def vector_matrix_mul(v, M):
     "Returns the product of vector v and matrix M"
     assert M.D[0] == v.D
     tempMat = Mat(M.D, {(y,x):z*val for (y,x),z in M.f.items() for key,val in v.f.items() if y == key})
-    return Vec(M.D[1], {key:sum(z for (y,x),z in tempMat.f.items() if x == key) for key in v.f.keys()})
+    return Vec(M.D[1], {key:sum(z for (y,x),z in tempMat.f.items() if x == key) for key in M.D[1]})
 
 def matrix_vector_mul(M, v):
     "Returns the product of matrix M and vector v"
