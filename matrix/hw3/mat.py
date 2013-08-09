@@ -1,5 +1,10 @@
 from vec import Vec
 
+def sparsify(M):
+    "removes zero value entries in the function"
+    M.f = {(y,x):v for (y,x),v in M.f.items() if v is not 0}
+    return M
+
 def getitem(M, k):
     "Returns the value of entry k in M.  The value of k should be a pair."
     assert k[0] in M.D[0] and k[1] in M.D[1]
@@ -20,7 +25,7 @@ def add(A, B):
                 retMat.f[k] = func[k]
             else:
                 retMat.f[k] = retMat.f[k] + func[k]
-    return retMat
+    return sparsify(retMat)
 
 def scalar_mul(M, alpha):
     "Returns the product of scalar alpha with M"
@@ -36,7 +41,7 @@ def equal(A, B):
 
 def transpose(M):
     "Returns the transpose of M"
-    return Mat((M.D[1], M.D[0]), {(q,p):v for (p,q),v in M.f.items()})
+    return sparsify(Mat((M.D[1], M.D[0]), {(q,p):v for (p,q),v in M.f.items()}))
 
 def vector_matrix_mul(v, M):
     "Returns the product of vector v and matrix M"
@@ -58,7 +63,7 @@ def matrix_matrix_mul(A, B):
     returnMat = Mat((A.D[0], B.D[1]), {})
     for (x,vec) in returns.items():
         returnMat.f = dict(list(returnMat.f.items()) + list({(y,x):z for (y,z) in vec.f.items()}.items()))
-    return returnMat
+    return sparsify(returnMat)
 
 ################################################################################
 
