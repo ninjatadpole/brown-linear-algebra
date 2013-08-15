@@ -1,14 +1,14 @@
 from vec import Vec
 from mat import Mat
 
-def identity(D, one):
+def identity(D, one=1):
   """Given a set D and the field's one, returns the DxD identity matrix
   e.g.:
-  
+
   >>> identity({0,1,2}, 1)
   Mat(({0, 1, 2}, {0, 1, 2}), {(0, 0): 1, (1, 1): 1, (2, 2): 1})
   """
-  return Mat((D,D), {(d,d):1 for d in D})
+  return Mat((D,D), {(d,d):one for d in D})
 
 def keys(d):
   """Given a dict, returns something that generates the keys; given a list,
@@ -25,7 +25,7 @@ def value(d):
 def mat2rowdict(A):
   """Given a matrix, return a dictionary mapping row labels of A to rows of A
 	 e.g.:
-	 
+
      >>> M = Mat(({0, 1, 2}, {0, 1}), {(0, 1): 1, (2, 0): 8, (1, 0): 4, (0, 0): 3, (2, 1): -2})
 	 >>> mat2rowdict(M)
 	 {0: Vec({0, 1},{0: 3, 1: 1}), 1: Vec({0, 1},{0: 4, 1: 0}), 2: Vec({0, 1},{0: 8, 1: -2})}
@@ -54,7 +54,7 @@ def coldict2mat(coldict):
     If coldict is a dictionary then its keys will be the column-labels of the Mat.
     If coldict is a list then {0...len(coldict)-1} will be the column-labels of the Mat.
     e.g.:
-    
+
     >>> A = {0:Vec({0,1},{0:1,1:2}),1:Vec({0,1},{0:3,1:4})}
     >>> B = [Vec({0,1},{0:1,1:2}),Vec({0,1},{0:3,1:4})]
     >>> mat2coldict(coldict2mat(A)) == A
@@ -76,7 +76,7 @@ def rowdict2mat(rowdict):
     If rowdict is a dictionary then its keys will be the row-labels of the Mat.
     If rowdict is a list then {0...len(rowdict)-1} will be the row-labels of the Mat.
     e.g.:
-    
+
     >>> A = {0:Vec({0,1},{0:1,1:2}),1:Vec({0,1},{0:3,1:4})}
     >>> B = [Vec({0,1},{0:1,1:2}),Vec({0,1},{0:3,1:4})]
     >>> mat2rowdict(rowdict2mat(A)) == A
